@@ -389,6 +389,10 @@ export const footerUtilityLinks = [
   { label: { ar: "Terms and Conditions", en: "Terms and Conditions" }, href: "/terms" },
   { label: { ar: "Privacy Policy", en: "Privacy Policy" }, href: "/privacy" },
   { label: { ar: "Cookie Policy", en: "Cookie Policy" }, href: "/cookies" },
+  {
+    label: { ar: "\u0637\u0644\u0628 \u062d\u0630\u0641 \u062d\u0633\u0627\u0628", en: "Account deletion request" },
+    href: "/account-deletion",
+  },
 ];
 export const socialLinks = ["WhatsApp", "Email", "Instagram", "Facebook"];
 
