@@ -1,22 +1,62 @@
 "use client";
 
+import type { FormEvent } from "react";
 import { useMemo, useState } from "react";
-import { Apple, ArrowUpRight, Crown, Mail, Play } from "lucide-react";
+import {
+  Apple,
+  ArrowUpRight,
+  Camera,
+  Crown,
+  Mail,
+  MessageCircle,
+  Play,
+  Share2,
+  type LucideIcon,
+} from "lucide-react";
 
 import Hero from "@/components/Hero";
 import TopBar from "@/components/TopBar";
 import {
   footerUtilityLinks,
   kishibContent,
+  officialEmails,
   socialLinks,
   type Lang,
 } from "@/data/kishibContent";
+
+const socialIcons: Record<string, LucideIcon> = {
+  whatsapp: MessageCircle,
+  email: Mail,
+  instagram: Camera,
+  facebook: Share2,
+};
 
 export default function Home() {
   const [lang, setLang] = useState<Lang>("ar");
   const isAr = lang === "ar";
   const dir = useMemo(() => (isAr ? "rtl" : "ltr"), [isAr]);
   const t = kishibContent[lang];
+  const footerContent = kishibContent.en.footer;
+
+  function handleContactSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const name = String(formData.get("name") ?? "");
+    const email = String(formData.get("email") ?? "");
+    const message = String(formData.get("message") ?? "");
+    const body = [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      "",
+      "Message:",
+      message,
+    ].join("\n");
+
+    window.location.href = `mailto:contact@kishibapp.com?subject=${encodeURIComponent(
+      "KISHIB Website Contact",
+    )}&body=${encodeURIComponent(body)}`;
+  }
 
   return (
     <main className="site" dir={dir}>
@@ -139,48 +179,71 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="footer" id="contact">
+      <footer className="footer" id="contact" dir="ltr">
         <div className="footerInner">
           <div className="footerBrand">
             <strong>KISHIB</strong>
-            <p>{t.footer.rights}</p>
+            <p>{footerContent.rights}</p>
           </div>
 
           <div>
-            <h2>{t.footer.linksTitle}</h2>
+            <h2>{footerContent.linksTitle}</h2>
             <nav className="footerLinks" aria-label="Footer links">
-              {t.nav.map((item) => (
+              {kishibContent.en.nav.map((item) => (
                 <a key={`footer-${item.key}`} href={item.href}>
                   {item.label}
                 </a>
               ))}
               {footerUtilityLinks.map((item) => (
                 <a key={item.href} href={item.href}>
-                  {item.label[lang]}
+                  {item.label.en}
                 </a>
               ))}
             </nav>
           </div>
 
           <div>
-            <h2>{t.footer.contactTitle}</h2>
+            <h2>{footerContent.contactTitle}</h2>
             <div className="socialLinks">
-              {socialLinks.map((item) => (
-                <a key={item} href="#">
-                  {item}
+              {socialLinks.map((item) => {
+                const Icon = socialIcons[item.icon] ?? Share2;
+
+                return (
+                  item.href ? (
+                    <a key={item.label} href={item.href} aria-label={item.label} title={item.label}>
+                      <Icon size={17} />
+                      <span>{item.label}</span>
+                    </a>
+                  ) : (
+                    <span key={item.label} className="socialIcon" aria-label={item.label} title={item.label}>
+                      <Icon size={17} />
+                      <span>{item.label}</span>
+                    </span>
+                  )
+                );
+              })}
+            </div>
+            <div className="officialEmails">
+              {officialEmails.map((item) => (
+                <a key={item.email} href={`mailto:${item.email}`}>
+                  <Mail size={14} />
+                  <span>
+                    <strong>{item.label}</strong>
+                    <em>{item.email}</em>
+                  </span>
                 </a>
               ))}
             </div>
           </div>
 
-          <form className="contactForm">
-            <h2>{t.footer.formTitle}</h2>
-            <input type="text" placeholder={t.footer.name} aria-label={t.footer.name} />
-            <input type="email" placeholder={t.footer.email} aria-label={t.footer.email} />
-            <textarea placeholder={t.footer.message} aria-label={t.footer.message} />
-            <button type="button">
+          <form className="contactForm" onSubmit={handleContactSubmit}>
+            <h2>{footerContent.formTitle}</h2>
+            <input name="name" type="text" placeholder={footerContent.name} aria-label={footerContent.name} />
+            <input name="email" type="email" placeholder={footerContent.email} aria-label={footerContent.email} />
+            <textarea name="message" placeholder={footerContent.message} aria-label={footerContent.message} />
+            <button type="submit">
               <Mail size={16} />
-              {t.footer.send}
+              {footerContent.send}
             </button>
           </form>
         </div>
@@ -553,7 +616,8 @@ export default function Home() {
         }
 
         .footerLinks,
-        .socialLinks {
+        .socialLinks,
+        .officialEmails {
           display: grid;
           gap: 8px;
         }
@@ -562,16 +626,82 @@ export default function Home() {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
+        .socialLinks {
+          grid-template-columns: repeat(4, 36px);
+        }
+
         .footerLinks a,
-        .socialLinks a {
+        .socialLinks a,
+        .socialIcon,
+        .officialEmails a {
           color: rgba(255, 255, 255, 0.68);
           font-size: 13px;
           text-decoration: none;
         }
 
+        .socialLinks a,
+        .socialIcon {
+          width: 36px;
+          height: 36px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid rgba(216, 182, 106, 0.26);
+          background: rgba(255, 255, 255, 0.04);
+        }
+
+        .socialIcon {
+          opacity: 0.72;
+        }
+
+        .socialLinks span span,
+        .socialLinks a span {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+        }
+
         .footerLinks a:hover,
-        .socialLinks a:hover {
+        .socialLinks a:hover,
+        .officialEmails a:hover {
           color: #ffffff;
+        }
+
+        .officialEmails {
+          margin-top: 14px;
+          gap: 7px;
+        }
+
+        .officialEmails a {
+          display: grid;
+          grid-template-columns: 14px auto;
+          align-items: center;
+          gap: 7px;
+          line-height: 1.2;
+        }
+
+        .officialEmails span {
+          display: grid;
+          gap: 2px;
+          min-width: 0;
+        }
+
+        .officialEmails strong {
+          color: rgba(216, 182, 106, 0.76);
+          font-size: 12px;
+          font-weight: 800;
+          font-style: normal;
+        }
+
+        .officialEmails em {
+          min-width: 0;
+          overflow-wrap: anywhere;
+          color: rgba(255, 255, 255, 0.68);
+          font-style: normal;
+          font-size: 12px;
         }
 
         .contactForm {
@@ -678,8 +808,8 @@ export default function Home() {
           }
 
           .footerInner {
-            grid-template-columns: 1fr;
-            gap: 22px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px 16px;
           }
         }
       `}</style>

@@ -45,7 +45,7 @@ export default function AccountDeletionPage() {
             </p>
 
             <p>
-              <a href="mailto:kishib.app@gmail.com">kishib.app@gmail.com</a>
+              <a href="mailto:support@kishibapp.com">support@kishibapp.com</a>
             </p>
 
             <p>
@@ -77,7 +77,7 @@ export default function AccountDeletionPage() {
             </p>
 
             <p>
-              <a href="mailto:kishib.app@gmail.com">kishib.app@gmail.com</a>
+              <a href="mailto:support@kishibapp.com">support@kishibapp.com</a>
             </p>
 
             <p>يرجى ذكر البريد الإلكتروني المستخدم في إنشاء حساب KISHIB.</p>

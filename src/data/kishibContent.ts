@@ -390,11 +390,22 @@ export const footerUtilityLinks = [
   { label: { ar: "Privacy Policy", en: "Privacy Policy" }, href: "/privacy" },
   { label: { ar: "Cookie Policy", en: "Cookie Policy" }, href: "/cookies" },
   {
-    label: { ar: "\u0637\u0644\u0628 \u062d\u0630\u0641 \u062d\u0633\u0627\u0628", en: "Account deletion request" },
+    label: { ar: "Delete Account Request", en: "Delete Account Request" },
     href: "/account-deletion",
   },
 ];
-export const socialLinks = ["WhatsApp", "Email", "Instagram", "Facebook"];
+export const socialLinks = [
+  { label: "WhatsApp", href: "", icon: "whatsapp" },
+  { label: "Email", href: "mailto:info@kishibapp.com", icon: "email" },
+  { label: "Instagram", href: "", icon: "instagram" },
+  { label: "Facebook", href: "", icon: "facebook" },
+];
+
+export const officialEmails = [
+  { label: "Info", email: "info@kishibapp.com" },
+  { label: "Support", email: "support@kishibapp.com" },
+  { label: "Contact", email: "contact@kishibapp.com" },
+];
 
 export const downloadIcons = {
   android: Smartphone,
