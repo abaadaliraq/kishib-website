@@ -29,16 +29,10 @@ export const metadata: Metadata = {
     "كيشيب",
   ],
 
-  verification: {
-    other: {
-      "msvalidate.01": "01BBC0FB5BE3F105123681E741F589C8",
-    },
-  },
-
   openGraph: {
     title: "KISHIB | AI Antique & Collectible Evaluation",
     description:
-      "Evaluate antiques, collectibles, jewelry, artworks, luxury items, and heritage pieces with AI-powered image analysis and detailed reports.",
+      "Evaluate antiques, collectibles, jewelry, artworks, and heritage pieces with AI-powered image analysis and detailed reports.",
     url: "https://www.kishibapp.com",
     siteName: "KISHIB",
     images: [
@@ -73,6 +67,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
+      <head>
+        <meta
+          name="msvalidate.01"
+          content="01BBC0FB5BE3F105123681E741F589C8"
+        />
+      </head>
       <body>
         {children}
         <CookieConsent />
