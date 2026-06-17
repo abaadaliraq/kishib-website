@@ -5,16 +5,13 @@ import { useMemo, useState } from "react";
 import {
   Apple,
   ArrowUpRight,
-  Camera,
   Crown,
   Mail,
-  MessageCircle,
   Play,
-  Share2,
-  type LucideIcon,
 } from "lucide-react";
 
 import Hero from "@/components/Hero";
+import SocialIcon from "@/components/SocialIcon";
 import TopBar from "@/components/TopBar";
 import {
   footerUtilityLinks,
@@ -23,13 +20,6 @@ import {
   socialLinks,
   type Lang,
 } from "@/data/kishibContent";
-
-const socialIcons: Record<string, LucideIcon> = {
-  whatsapp: MessageCircle,
-  email: Mail,
-  instagram: Camera,
-  facebook: Share2,
-};
 
 export default function Home() {
   const [lang, setLang] = useState<Lang>("ar");
@@ -206,17 +196,15 @@ export default function Home() {
             <h2>{footerContent.contactTitle}</h2>
             <div className="socialLinks">
               {socialLinks.map((item) => {
-                const Icon = socialIcons[item.icon] ?? Share2;
-
                 return (
                   item.href ? (
                     <a key={item.label} href={item.href} aria-label={item.label} title={item.label}>
-                      <Icon size={17} />
+                      <SocialIcon icon={item.icon} size={17} />
                       <span>{item.label}</span>
                     </a>
                   ) : (
                     <span key={item.label} className="socialIcon" aria-label={item.label} title={item.label}>
-                      <Icon size={17} />
+                      <SocialIcon icon={item.icon} size={17} />
                       <span>{item.label}</span>
                     </span>
                   )

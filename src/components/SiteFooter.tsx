@@ -1,8 +1,9 @@
 "use client";
 
 import type { FormEvent } from "react";
-import { Camera, Mail, MessageCircle, Share2, type LucideIcon } from "lucide-react";
+import { Mail } from "lucide-react";
 
+import SocialIcon from "@/components/SocialIcon";
 import {
   footerUtilityLinks,
   kishibContent,
@@ -17,13 +18,6 @@ type SiteFooterProps = {
   nav: NavItem[];
   footer: KishibContent["footer"];
   lang?: Lang;
-};
-
-const socialIcons: Record<string, LucideIcon> = {
-  whatsapp: MessageCircle,
-  email: Mail,
-  instagram: Camera,
-  facebook: Share2,
 };
 
 export default function SiteFooter({ nav, footer, lang = "en" }: SiteFooterProps) {
@@ -81,17 +75,15 @@ export default function SiteFooter({ nav, footer, lang = "en" }: SiteFooterProps
           <h2>{footerContent.contactTitle}</h2>
           <div className="socialLinks">
             {socialLinks.map((item) => {
-              const Icon = socialIcons[item.icon] ?? Share2;
-
               return (
                 item.href ? (
                   <a key={item.label} href={item.href} aria-label={item.label} title={item.label}>
-                    <Icon size={17} />
+                    <SocialIcon icon={item.icon} size={17} />
                     <span>{item.label}</span>
                   </a>
                 ) : (
                   <span key={item.label} className="socialIcon" aria-label={item.label} title={item.label}>
-                    <Icon size={17} />
+                    <SocialIcon icon={item.icon} size={17} />
                     <span>{item.label}</span>
                   </span>
                 )

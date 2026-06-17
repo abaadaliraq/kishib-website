@@ -395,10 +395,9 @@ export const footerUtilityLinks = [
   },
 ];
 export const socialLinks = [
-  { label: "WhatsApp", href: "", icon: "whatsapp" },
-  { label: "Email", href: "mailto:info@kishibapp.com", icon: "email" },
-  { label: "Instagram", href: "", icon: "instagram" },
-  { label: "Facebook", href: "", icon: "facebook" },
+  { label: "Email", href: "https://mail.google.com/mail/?view=cm&fs=1&to=info@kishibapp.com", icon: "email" },
+  { label: "Instagram", href: "https://www.instagram.com/kishib.app/?__pwa=1", icon: "instagram" },
+  { label: "Facebook", href: "https://web.facebook.com/profile.php?id=61590564198003", icon: "facebook" },
 ];
 
 export const officialEmails = [
