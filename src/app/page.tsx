@@ -154,7 +154,13 @@ export default function Home() {
                 <strong>App Store</strong>
               </span>
             </a>
-            <a className="storeBadge" href="#" aria-label={t.download.android}>
+            <a
+              className="storeBadge"
+              href="https://play.google.com/store/apps/details?id=com.kishib.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="تحميل تطبيق كيشيب من Google Play"
+            >
               <Play size={28} />
               <span>
                 <small>Android app on</small>
