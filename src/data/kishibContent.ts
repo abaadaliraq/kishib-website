@@ -4,13 +4,13 @@ import {
   Camera,
   FileText,
   Gem,
+  Images,
   Languages,
   Mail,
   ReceiptText,
   Scale,
   Share2,
   Smartphone,
-  Store,
   UserRound,
 } from "lucide-react";
 
@@ -40,9 +40,43 @@ export type KishibContent = {
   heroKicker: string;
   heroTitle: string;
   heroText: string;
+  heroStatement: string;
   primary: string;
   secondary: string;
   stats: [string, string][];
+  heroCards: {
+    value: {
+      title: string;
+      value: string;
+      text: string;
+    };
+    period: {
+      title: string;
+      value: string;
+      text: string;
+    };
+    description: {
+      title: string;
+      value: string;
+      text: string;
+    };
+    material: {
+      title: string;
+      value: string;
+      text: string;
+    };
+    origin: {
+      title: string;
+      value: string;
+      text: string;
+    };
+    authenticity: {
+      title: string;
+      value: string;
+      text: string;
+    };
+  };
+  heroBottomFeatures: string[];
   about: {
     title: string;
     lines: string[];
@@ -72,6 +106,9 @@ export type KishibContent = {
     text: string;
     android: string;
     iphone: string;
+    googlePlayAlt: string;
+    appStoreAlt: string;
+    soon: string;
     subscriptions: string;
   };
   footer: {
@@ -113,12 +150,51 @@ export const kishibContent: Record<Lang, KishibContent> = {
     heroTitle: "كيشيب... قيّم، افهم، واحفظ قيمة القطع.",
     heroText:
       "منصة تساعدك على قراءة القطع القديمة والثمينة بتقرير أولي واضح ومباشر.",
+    heroStatement: "تقييمات موثوقة. قيمة لا تنتهي.",
     primary: "حمّل التطبيق",
     secondary: "كيف يعمل؟",
     stats: [
       ["AI", "قراءة أولية ذكية"],
       ["8", "لغات مدعومة"],
-      ["Market", "سوق كيشيب قريباً"],
+      ["Similar", "صور مشابهة لقطعتك"],
+    ],
+    heroCards: {
+      value: {
+        title: "القيمة التقديرية",
+        value: "٢٬٨٠٠ – ٣٬٦٠٠ دولار",
+        text: "بناءً على الحالة والندرة والطلب ونتائج مشابهة.",
+      },
+      period: {
+        title: "العمر والحقبة",
+        value: "أوائل القرن العشرين",
+        text: "يُرجّح إنتاجها بين عامي ١٩٠٠ و١٩٢٠.",
+      },
+      description: {
+        title: "الوصف",
+        value: "إناء أثري زخرفي",
+        text: "سطح معتّق وشكل متوازن وتفاصيل يدوية محفوظة.",
+      },
+      material: {
+        title: "المادة",
+        value: "معدن مطلي بالفضة",
+        text: "اللون وآثار الاستخدام يشيران إلى معدن أثري مطلي.",
+      },
+      origin: {
+        title: "المنشأ",
+        value: "تأثير عثماني",
+        text: "حرفة إقليمية تحمل لغة تصميم من الحقبة العثمانية.",
+      },
+      authenticity: {
+        title: "الأصالة",
+        value: "متناسقة بصرياً",
+        text: "علامات العمر وتفاصيل الصنع تدعم الطابع الأثري.",
+      },
+    },
+    heroBottomFeatures: [
+      "تقييم متخصص",
+      "تسعير بالمقارنة",
+      "تقارير مفصلة",
+      "تحليل المادة",
     ],
     about: {
       title: "عن تطبيق كيشيب",
@@ -200,9 +276,9 @@ export const kishibContent: Record<Lang, KishibContent> = {
           text: "قراءة أوضح لأسواق متعددة.",
         },
         {
-          icon: Store,
-          title: "سوق كيشيب قريباً",
-          text: "مساحة منظمة لعرض القطع.",
+          icon: Images,
+          title: "صور مشابهة لقطعتك",
+          text: "اكتشف صوراً ونتائج مشابهة لقطعتك من متاجر ومصادر عالمية، لمساعدتك على المقارنة وفهم موقعها في السوق.",
         },
         {
           icon: Scale,
@@ -231,6 +307,9 @@ export const kishibContent: Record<Lang, KishibContent> = {
       text: "سيكون تطبيق كيشيب متاحاً على Android و iPhone لتقييم القطع، حفظ التقارير، ومتابعة السوق بسهولة.",
       android: "Android",
       iphone: "iPhone",
+      googlePlayAlt: "تحميل كيشيب من Google Play",
+      appStoreAlt: "تطبيق كيشيب على App Store",
+      soon: "قريباً",
       subscriptions: "عرض الاشتراكات",
     },
     footer: {
@@ -251,12 +330,51 @@ export const kishibContent: Record<Lang, KishibContent> = {
     heroTitle: "KISHIB... evaluate, understand, and preserve value.",
     heroText:
       "KISHIB helps users understand antiques and valuable items through clear initial reports.",
+    heroStatement: "Trusted Appraisals. Timeless Value.",
     primary: "Download app",
     secondary: "How it works",
     stats: [
       ["AI", "Smart initial reading"],
       ["8", "Supported languages"],
-      ["Market", "KISHIB Market soon"],
+      ["Similar", "Similar item discovery"],
+    ],
+    heroCards: {
+      value: {
+        title: "Estimated Value",
+        value: "$2,800 – $3,600 USD",
+        text: "Based on condition, rarity, market demand, and comparable records.",
+      },
+      period: {
+        title: "Age & Period",
+        value: "Early 20th Century",
+        text: "Likely produced between 1900–1920.",
+      },
+      description: {
+        title: "Description",
+        value: "Decorative antique vessel",
+        text: "Aged surface, balanced form, and preserved handcrafted details.",
+      },
+      material: {
+        title: "Material",
+        value: "Silver-plated metal",
+        text: "Visual tone and wear indicate plated antique metal.",
+      },
+      origin: {
+        title: "Origin",
+        value: "Ottoman Influence",
+        text: "Regional craftsmanship with Ottoman-era design language.",
+      },
+      authenticity: {
+        title: "Authenticity",
+        value: "Visually consistent",
+        text: "Age marks and construction details support antique character.",
+      },
+    },
+    heroBottomFeatures: [
+      "Expert Evaluation",
+      "Comparable Pricing",
+      "Detailed Reports",
+      "Material Insight",
     ],
     about: {
       title: "About KISHIB",
@@ -338,9 +456,9 @@ export const kishibContent: Record<Lang, KishibContent> = {
           text: "Clearer reading for multiple markets.",
         },
         {
-          icon: Store,
-          title: "KISHIB Market soon",
-          text: "A trusted place to list pieces.",
+          icon: Images,
+          title: "Similar Items",
+          text: "Discover visually similar items from international stores and sources to compare your piece and better understand its market position.",
         },
         {
           icon: Scale,
@@ -369,6 +487,9 @@ export const kishibContent: Record<Lang, KishibContent> = {
       text: "KISHIB will be available on Android and iPhone to appraise items, save reports, and follow the market easily.",
       android: "Android",
       iphone: "iPhone",
+      googlePlayAlt: "Download KISHIB on Google Play",
+      appStoreAlt: "KISHIB on the App Store",
+      soon: "Soon",
       subscriptions: "View Subscriptions",
     },
     footer: {

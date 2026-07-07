@@ -20,7 +20,7 @@ type SiteFooterProps = {
   lang?: Lang;
 };
 
-export default function SiteFooter({ nav, footer, lang = "en" }: SiteFooterProps) {
+export default function SiteFooter({ nav }: SiteFooterProps) {
   const footerContent = kishibContent.en.footer;
   const footerNav = nav.map((item) => ({
     ...item,

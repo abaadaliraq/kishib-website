@@ -1,7 +1,6 @@
 import Image from "next/image";
 import HeroMobile from "@/components/mobile/HeroMobile";
 import {
-  ArrowRight,
   BadgeCheck,
   CalendarClock,
   FileText,
@@ -11,19 +10,20 @@ import {
   Scale,
   ShieldCheck,
 } from "lucide-react";
-import type { Lang } from "@/data/kishibContent";
+import type { KishibContent, Lang } from "@/data/kishibContent";
 
 type HeroProps = {
-  lang?: Lang;
+  lang: Lang;
   kicker?: string;
   title?: string;
   text?: string;
   primary?: string;
   secondary?: string;
   stats?: [string, string][];
+  content: Pick<KishibContent, "heroKicker" | "heroTitle" | "heroText" | "heroStatement" | "heroCards" | "heroBottomFeatures">;
 };
 
-const cards = [
+const cardMeta = [
   {
     key: "value",
     className: "valueCard",
@@ -72,14 +72,22 @@ const cards = [
     text: "Age marks and construction details support antique character.",
     icon: ShieldCheck,
   },
-];
+] as const;
 
-export default function Hero(_: HeroProps) {
+const bottomFeatureIcons = [ShieldCheck, Scale, FileText, Gem] as const;
+
+export default function Hero({ lang, content }: HeroProps) {
+  const isAr = lang === "ar";
+  const cards = cardMeta.map((card) => ({
+    ...card,
+    ...content.heroCards[card.key],
+  }));
+
   return (
     <>
-      <HeroMobile />
+      <HeroMobile lang={lang} content={content} />
 
-      <section className="kishibHero" id="home">
+      <section className="kishibHero" id="home" dir={isAr ? "rtl" : "ltr"}>
         <div className="brandPanel">
           <div className="brandMark">
             <Landmark size={20} />
@@ -91,7 +99,7 @@ export default function Hero(_: HeroProps) {
 
         <div className="topStatement">
           <BadgeCheck size={16} />
-          <span>Trusted Appraisals. Timeless Value.</span>
+          <span>{content.heroStatement}</span>
         </div>
 
         <div className="stage">
@@ -170,25 +178,16 @@ export default function Hero(_: HeroProps) {
         </div>
 
         <div className="bottomFeatures">
-          <div>
-            <ShieldCheck size={26} />
-            <span>Expert Evaluation</span>
-          </div>
+          {content.heroBottomFeatures.map((feature, index) => {
+            const Icon = bottomFeatureIcons[index];
 
-          <div>
-            <Scale size={26} />
-            <span>Market-Based Pricing</span>
-          </div>
-
-          <div>
-            <FileText size={26} />
-            <span>Detailed Reports</span>
-          </div>
-
-          <div>
-            <Gem size={26} />
-            <span>Material Insight</span>
-          </div>
+            return (
+              <div key={feature}>
+                <Icon size={26} />
+                <span>{feature}</span>
+              </div>
+            );
+          })}
         </div>
 
         <style jsx>{`

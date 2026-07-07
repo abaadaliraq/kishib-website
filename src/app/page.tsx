@@ -1,13 +1,12 @@
 "use client";
 
 import type { FormEvent } from "react";
+import Image from "next/image";
 import { useMemo, useState } from "react";
 import {
-  Apple,
   ArrowUpRight,
   Crown,
   Mail,
-  Play,
 } from "lucide-react";
 
 import Hero from "@/components/Hero";
@@ -64,6 +63,7 @@ export default function Home() {
         primary={t.primary}
         secondary={t.secondary}
         stats={t.stats}
+        content={t}
       />
 
       <section className="section aboutSection" id="about">
@@ -147,26 +147,31 @@ export default function Home() {
             <p>{t.download.text}</p>
           </div>
           <div className="downloadBtns">
-            <a className="storeBadge" href="#" aria-label={t.download.iphone}>
-              <Apple size={30} />
-              <span>
-                <small>Download on the</small>
-                <strong>App Store</strong>
-              </span>
-            </a>
             <a
               className="storeBadge"
               href="https://play.google.com/store/apps/details?id=com.kishib.app"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="تحميل تطبيق كيشيب من Google Play"
+              aria-label={t.download.googlePlayAlt}
             >
-              <Play size={28} />
-              <span>
-                <small>Android app on</small>
-                <strong>Google Play</strong>
-              </span>
+              <Image
+                src="/google-play-badg.png"
+                alt={t.download.googlePlayAlt}
+                width={180}
+                height={54}
+                className="storeBadgeImage"
+              />
             </a>
+            <div className="storeBadge appStoreUnavailable" aria-label={t.download.appStoreAlt}>
+              <span className="soonBadge">{t.download.soon}</span>
+              <Image
+                src="/app-store-badg.png"
+                alt={t.download.appStoreAlt}
+                width={180}
+                height={54}
+                className="storeBadgeImage appStoreBadgeImage"
+              />
+            </div>
             <a className="subscriptionsBtn" href="/subscriptions">
               <Crown size={18} />
               {t.download.subscriptions}
@@ -506,40 +511,49 @@ export default function Home() {
         }
 
         .storeBadge {
-          min-width: 205px;
-          min-height: 68px;
-          gap: 14px;
-          padding: 10px 18px;
-          border: 1px solid rgba(216, 182, 106, 0.36);
-          border-radius: 10px;
-          background: #050505;
-          color: #ffffff;
-          box-shadow: 0 16px 34px rgba(5, 5, 5, 0.18);
+          position: relative;
+          min-width: 180px;
+          min-height: 54px;
+          padding: 0;
+          border: 0;
+          background: transparent;
+          color: inherit;
+          box-shadow: none;
         }
 
-        .storeBadge span {
-          display: grid;
-          gap: 2px;
-          line-height: 1;
+        .storeBadgeImage {
+          width: auto;
+          height: 54px;
+          display: block;
+          object-fit: contain;
         }
 
-        .storeBadge small {
-          color: rgba(255, 255, 255, 0.76);
-          font-size: 12px;
-          font-weight: 700;
-          text-transform: uppercase;
+        .appStoreUnavailable {
+          cursor: default;
+          pointer-events: none;
         }
 
-        .storeBadge strong {
-          color: #ffffff;
-          font-size: 25px;
+        .appStoreBadgeImage {
+          opacity: 0.62;
+        }
+
+        .soonBadge {
+          position: absolute;
+          z-index: 2;
+          top: -9px;
+          inset-inline-end: -7px;
+          min-height: 22px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0 9px;
+          border-radius: 999px;
+          background: #d8b66a;
+          color: #050505;
+          font-size: 11px;
           font-weight: 900;
-          letter-spacing: 0;
-        }
-
-        .storeBadge:last-child svg {
-          color: #d86422;
-          fill: rgba(216, 100, 34, 0.2);
+          line-height: 1;
+          box-shadow: 0 8px 18px rgba(5, 5, 5, 0.18);
         }
 
         .subscriptionsBtn {
@@ -784,17 +798,17 @@ export default function Home() {
             line-height: 1.65;
           }
 
-          .downloadBtns a {
+          .downloadBtns > * {
             flex: 1 1 100%;
           }
 
           .storeBadge {
             min-width: 0;
-            min-height: 62px;
+            min-height: 50px;
           }
 
-          .storeBadge strong {
-            font-size: 22px;
+          .storeBadgeImage {
+            height: 50px;
           }
 
           .footer {

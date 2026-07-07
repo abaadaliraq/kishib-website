@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { BadgeCheck, Check, Crown, ShieldCheck } from "lucide-react";
 import { useMemo, useState } from "react";
 
@@ -80,9 +81,9 @@ export default function SubscriptionsPage() {
                   ))}
                 </ul>
 
-                <a className="planCta" href="/#download">
+                <Link className="planCta" href="/#download">
                   {plan.cta}
-                </a>
+                </Link>
               </article>
             );
           })}

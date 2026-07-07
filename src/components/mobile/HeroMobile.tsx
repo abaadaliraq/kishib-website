@@ -7,9 +7,16 @@ import {
   MapPin,
   Scale,
 } from "lucide-react";
+import type { KishibContent, Lang } from "@/data/kishibContent";
 
-const mobileCards = [
+type HeroMobileProps = {
+  lang: Lang;
+  content: Pick<KishibContent, "heroKicker" | "heroTitle" | "heroText" | "heroCards">;
+};
+
+const mobileCardMeta = [
   {
+    key: "value",
     className: "mobileCardValue",
     title: "Estimated Value",
     value: "$2,800 – $3,600",
@@ -17,6 +24,7 @@ const mobileCards = [
     icon: Scale,
   },
   {
+    key: "period",
     className: "mobileCardPeriod",
     title: "Age & Period",
     value: "Early 20th C.",
@@ -24,6 +32,7 @@ const mobileCards = [
     icon: CalendarClock,
   },
   {
+    key: "description",
     className: "mobileCardDesc",
     title: "Description",
     value: "Antique Vessel",
@@ -31,29 +40,33 @@ const mobileCards = [
     icon: FileText,
   },
   {
+    key: "origin",
     className: "mobileCardOrigin",
     title: "Origin",
     value: "Ottoman Influence",
     text: "Regional craft style",
     icon: MapPin,
   },
-];
+] as const;
 
-export default function HeroMobile() {
+export default function HeroMobile({ lang, content }: HeroMobileProps) {
+  const isAr = lang === "ar";
+  const mobileCards = mobileCardMeta.map((card) => ({
+    ...card,
+    ...content.heroCards[card.key],
+  }));
+
   return (
-    <section className="mobileHero" id="home-mobile">
+    <section className="mobileHero" id="home-mobile" dir={isAr ? "rtl" : "ltr"}>
       <div className="mobileIntro">
         <div className="mobileKicker">
           <BadgeCheck size={14} />
-          <span>Trusted Appraisals</span>
+          <span>{content.heroKicker}</span>
         </div>
 
-        <h1>Discover True Value</h1>
+        <h1>{content.heroTitle}</h1>
 
-        <p>
-          AI-powered antique evaluation with market insight and clean appraisal
-          reports.
-        </p>
+        <p>{content.heroText}</p>
       </div>
 
       <div className="mobileStage">
@@ -92,7 +105,7 @@ export default function HeroMobile() {
           return (
             <article
               className={`mobileFloatingCard ${card.className}`}
-              key={card.title}
+              key={card.key}
               style={{ animationDelay: `${1.05 + index * 0.14}s` }}
             >
               <div className="mobileIcon">
@@ -112,10 +125,10 @@ export default function HeroMobile() {
       <div className="mobileBottomCard">
         <div>
           <Gem size={16} />
-          <span>Material</span>
+          <span>{content.heroCards.material.title}</span>
         </div>
-        <strong>Silver-plated metal</strong>
-        <p>Visual tone and wear indicate plated antique metal.</p>
+        <strong>{content.heroCards.material.value}</strong>
+        <p>{content.heroCards.material.text}</p>
       </div>
 
       <style jsx>{`

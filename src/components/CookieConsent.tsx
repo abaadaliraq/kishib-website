@@ -9,8 +9,12 @@ export default function CookieConsent() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const storedChoice = window.localStorage.getItem(COOKIE_CONSENT_KEY);
-    setVisible(storedChoice !== "accepted" && storedChoice !== "rejected");
+    const timer = window.setTimeout(() => {
+      const storedChoice = window.localStorage.getItem(COOKIE_CONSENT_KEY);
+      setVisible(storedChoice !== "accepted" && storedChoice !== "rejected");
+    }, 0);
+
+    return () => window.clearTimeout(timer);
   }, []);
 
   const saveChoice = (choice: "accepted" | "rejected") => {
@@ -27,7 +31,7 @@ export default function CookieConsent() {
       <div className="cookieInner">
         <p>
           KISHIB uses cookies to improve your experience, remember preferences, and analyze
-          website performance. By continuing or clicking "Accept", you agree to our Cookie
+          website performance. By continuing or clicking &quot;Accept&quot;, you agree to our Cookie
           Policy.
         </p>
 

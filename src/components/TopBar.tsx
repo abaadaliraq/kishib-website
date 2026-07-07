@@ -5,6 +5,8 @@ import { useState } from "react";
 
 import type { NavItem } from "@/data/kishibContent";
 
+const googlePlayUrl = "https://play.google.com/store/apps/details?id=com.kishib.app";
+
 type TopBarProps = {
   nav: NavItem[];
   langLabel: string;
@@ -24,6 +26,9 @@ export default function TopBar({
 
   const closeMenu = () => setOpen(false);
   const downloadItem = nav.find((item) => item.key === "download");
+  const getNavHref = (item: NavItem) => (item.key === "download" ? googlePlayUrl : item.href);
+  const getNavTarget = (item: NavItem) => (item.key === "download" ? "_blank" : undefined);
+  const getNavRel = (item: NavItem) => (item.key === "download" ? "noopener noreferrer" : undefined);
 
   return (
     <header className="topbarWrap">
@@ -34,7 +39,7 @@ export default function TopBar({
 
         <nav className="desktopNav" aria-label="KISHIB navigation">
           {nav.map((item) => (
-            <a key={item.key} href={item.href}>
+            <a key={item.key} href={getNavHref(item)} target={getNavTarget(item)} rel={getNavRel(item)}>
               {item.label}
             </a>
           ))}
@@ -54,9 +59,10 @@ export default function TopBar({
         {downloadItem && (
           <a
             className="downloadTopBtn"
-            href="#"
+            href={googlePlayUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label={downloadItem.label}
-            onClick={(event) => event.preventDefault()}
           >
             <Download size={15} />
             {downloadItem.label}
@@ -86,7 +92,13 @@ export default function TopBar({
 
         <nav className="mobileLinks" aria-label="Mobile navigation">
           {nav.map((item) => (
-            <a key={`mobile-${item.key}`} href={item.href} onClick={closeMenu}>
+            <a
+              key={`mobile-${item.key}`}
+              href={getNavHref(item)}
+              target={getNavTarget(item)}
+              rel={getNavRel(item)}
+              onClick={closeMenu}
+            >
               {item.label}
             </a>
           ))}
@@ -109,9 +121,11 @@ export default function TopBar({
         {downloadItem && (
           <a
             className="mobileDownload"
-            href="#"
+            href={googlePlayUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label={downloadItem.label}
-            onClick={(event) => event.preventDefault()}
+            onClick={closeMenu}
           >
             <Download size={16} />
             {downloadItem.label}
@@ -121,8 +135,7 @@ export default function TopBar({
 
       <style jsx>{`
         .topbarWrap {
-          position: fixed;
-          inset: 0 0 auto;
+          position: relative;
           z-index: 50;
           padding: 10px 14px 0;
           pointer-events: none;
